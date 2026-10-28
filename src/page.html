@@ -1,0 +1,7 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scam Shield</title>
+<style>body{font-family:system-ui;max-width:720px;margin:40px auto;padding:0 16px;background:#0e1116;color:#e6e6e6}textarea{width:100%;height:120px;background:#161b22;color:#eee;border:1px solid #333;border-radius:8px;padding:10px}button{margin:8px 4px 0 0;padding:8px 14px;border-radius:8px;border:0;background:#c9a227;cursor:pointer}pre{background:#161b22;padding:12px;border-radius:8px;white-space:pre-wrap}.s{color:#ff6b6b}.l{color:#5fd38d}</style></head>
+<body><h1>Scam Shield</h1><p>Paste a text, email or DM. A model trained on the UCI SMS Spam Collection scores it as scam or legit, right in the Worker (no LLM call).</p>
+<textarea id="t">URGENT! Your account is suspended. Verify now at http://secure-login.example.com or lose access. Reply STOP to 80085</textarea>
+<button onclick="go()">Check</button><button onclick="t.value='Hey, running 10 min late, save me a seat'">Legit example</button>
+<h2 id="v"></h2><pre id="o"></pre>
+<script>async function go(){const r=await fetch('/api/classify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({text:t.value})});const j=await r.json();v.textContent=j.label?(j.label.toUpperCase()+' · p(scam)='+j.p_scam):'';v.className=j.label==='scam'?'s':'l';o.textContent=JSON.stringify(j,null,2)}</script></body></html>

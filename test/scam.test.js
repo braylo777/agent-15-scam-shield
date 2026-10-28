@@ -1,0 +1,18 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { classify } from "../src/app.js";
+import { featurize } from "../src/features.js";
+import { metrics } from "../src/metrics.js";
+import worker from "../src/index.js";
+const post = (path, b) => worker.fetch(new Request("http://x" + path, { method: "POST", body: JSON.stringify(b) }), {});
+test("flags an obvious prize scam", () => assert.equal(classify("WINNER!! You have won a £1000 prize. Call 09061701461 to claim now").label, "scam"));
+test("passes a normal personal message", () => assert.equal(classify("ok see you at dinner tonight, I'll bring the kids").label, "legit"));
+test("probability is in [0,1] and signals are explained", () => { const r = classify("Verify your account at http://x.co urgent"); assert.ok(r.p_scam >= 0 && r.p_scam <= 1); assert.ok(r.signals.includes("link")); });
+test("features are L2-normalised", () => { const n = featurize("hello world hello").reduce((a, [, v]) => a + v * v, 0); assert.ok(Math.abs(n - 1) < 1e-9); });
+test("metrics: perfect ranking gives AUC 1 and F1 1", () => { const m = metrics([0, 0, 1, 1], [0.1, 0.2, 0.8, 0.9]); assert.equal(m.roc_auc, 1); assert.equal(m.f1, 1); });
+test("metrics: reversed ranking gives AUC 0", () => assert.equal(metrics([1, 0], [0.1, 0.9]).roc_auc, 0));
+test("metrics: ECE is 0 for calibrated bins", () => assert.ok(metrics([1, 0], [1, 0]).ece_10bin < 1e-9));
+test("API rejects empty text", async () => assert.equal((await post("/api/classify", { text: "" })).status, 400));
+test("API classifies without any model call", async () => { const j = await (await post("/api/classify", { text: "Free entry! Text WIN to 80086" })).json(); assert.equal(j.label, "scam"); });
+test("embed endpoint reports untrained head honestly", async () => assert.equal((await post("/api/classify-embed", { text: "hi" })).status, 503));
+test("GET serves the demo page", async () => assert.match(await (await worker.fetch(new Request("http://x/"), {})).text(), /Scam Shield/));

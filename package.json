@@ -1,0 +1,15 @@
+{
+  "name": "agent-15-scam-shield",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --import ./test/support/register.mjs --test test/*.test.js",
+    "train": "node evals/train.mjs", "build": "node build.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}

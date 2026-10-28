@@ -1,0 +1,16 @@
+name = "agent-15-scam-shield"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[ai]
+binding = "AI"
+
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1015"
+simple = { limit = 5, period = 60 }
+
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = true

@@ -1,0 +1,92 @@
+{
+  "dataset": "UCI SMS Spam Collection (5,574 msgs, 747 spam)",
+  "split": "stratified 80/20, seed 42",
+  "n_train": 4460,
+  "n_test": 1114,
+  "epochs": 30,
+  "hashed_ngram_lr": {
+    "test": {
+      "n": 1114,
+      "tp": 137,
+      "fp": 0,
+      "fn": 12,
+      "tn": 965,
+      "precision": 1,
+      "recall": 0.9194630872483222,
+      "f1": 0.958041958041958,
+      "roc_auc": 0.9982404284174288,
+      "ece_10bin": 0.009619317856186976,
+      "brier": 0.00885344922885687,
+      "reliability": [
+        {
+          "bin": "0-0.1",
+          "n": 962,
+          "mean_pred": 0.004803913415593904,
+          "frac_scam": 0.004158004158004158
+        },
+        {
+          "bin": "0.1-0.2",
+          "n": 7,
+          "mean_pred": 0.14662010376156137,
+          "frac_scam": 0.2857142857142857
+        },
+        {
+          "bin": "0.2-0.3",
+          "n": 4,
+          "mean_pred": 0.2571186171659377,
+          "frac_scam": 0.75
+        },
+        {
+          "bin": "0.3-0.4",
+          "n": 2,
+          "mean_pred": 0.33206955314745923,
+          "frac_scam": 1
+        },
+        {
+          "bin": "0.4-0.5",
+          "n": 2,
+          "mean_pred": 0.45359850516234346,
+          "frac_scam": 0.5
+        },
+        {
+          "bin": "0.5-0.6",
+          "n": 3,
+          "mean_pred": 0.5589394015281774,
+          "frac_scam": 1
+        },
+        {
+          "bin": "0.6-0.7",
+          "n": 4,
+          "mean_pred": 0.647598940162197,
+          "frac_scam": 1
+        },
+        {
+          "bin": "0.7-0.8",
+          "n": 4,
+          "mean_pred": 0.7632775053097679,
+          "frac_scam": 1
+        },
+        {
+          "bin": "0.8-0.9",
+          "n": 3,
+          "mean_pred": 0.8220710783271187,
+          "frac_scam": 1
+        },
+        {
+          "bin": "0.9-1",
+          "n": 123,
+          "mean_pred": 0.9877459843978944,
+          "frac_scam": 1
+        }
+      ]
+    },
+    "train": {
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "roc_auc": 1
+    }
+  },
+  "embedding_head_bge_base": "not yet run (Workers AI free daily quota exhausted until 7 PM CT Oct 28)",
+  "run_at": "2026-10-28T01:25:54.128Z"
+}
