@@ -31,3 +31,18 @@ Caveat: the data is 2000s-era UK SMS spam. Modern AI-voice and email phishing wi
 
 ## How it ships
 `npm test` (11 tests, no model calls), then `npm run train`, then `npm run build` (bundles to `dist/worker.js`), then deploy with `wrangler deploy` or the Cloudflare API upload. Free tier only, with a 5/min per-IP rate limit on the model endpoint. Rollback tag: `v0-rollback`.
+
+## How to run
+
+```bash
+npm install   # dev deps only
+npm test      # 15 offline tests, no Workers AI calls
+npm run dev   # local wrangler dev
+```
+
+## Test results (2026-10-27)
+
+| Suite | Tests | Status |
+|---|---|---|
+| Unit + edge cases (test/edge.test.js added) | 11→15 | all pass |
+| Live demo https://agent-15-scam-shield.braylo777.workers.dev | HTTP 200 | verified 2026-10-27 |
